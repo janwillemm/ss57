@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TV Systeem
 
 Lang ben ik bezig geweest een systeem in elkaar te flansen, wachtend op de views op de server. Toen die er eenmaal waren bleek het allemaal toch iets te traag te werken. Vandaar het gebruik van Supersized. Een plugin voor jQuery waarmee slideshows mooi weergegeven kunnen worden.
@@ -21,3 +22,9 @@ x/6/13
 
 - http://twitter.com/hermanbanken
 - hermanb@ch.tudelft.nl
+=======
+ss57
+====
+
+SimpleSlider57
+>>>>>>> bd9fcc50a498a40e0b12f13e57b9f3616bc1ebd4
