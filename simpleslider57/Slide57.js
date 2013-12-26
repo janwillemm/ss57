@@ -1,6 +1,7 @@
 function Slide(){
-	this.html = $("<div>").addClass("slide");
+	this.html;
 	this.active;
+	this.needsOwl;
 
 	this.show = function(){
 		this.html.addClass("show");
@@ -17,7 +18,10 @@ function Slide(){
 	}
 
 	this.makeHTML = function(){
-		console.log("Yet to be implemented")
+		this.html = $("<div>").addClass("slide");
+		if(this.needsOwl){
+			this.addOwl();
+		}
 	}
 
 	this.addOwl = function(){
@@ -35,42 +39,51 @@ function Slide(){
 }
 
 
-function UpcomingEventSlide(event) {
+function PostEventSlide() {
 	this.parent.constructor.call(this);
-	this.event = event;
+	
+	this.title;
+	this.date;
+	this.desc;
+	this.price;
+	this.location;
+	this.imageUrl;
 
+
+	var oldMakeHTML = this.makeHTML;
 	this.makeHTML = function(){
-		
-		var title = $("<H1>").text(event.title),
-			date = $("<p>").addClass("time").html(event.date_poster),
-			desc = $("<div>").addClass("desc").html(event.body),
-			leftColumn = $("<div>").addClass("left-column").html(title).append(date).append(desc),
+		oldMakeHTML.call(this);
+		var title = $("<H1>").text(this.title),
+			date = $("<p>").addClass("time").html(this.date),
+			desc = $("<div>").addClass("desc").html(this.desc),
+			price = $("<div>").addClass("price").html(this.price),
+			location = $("<div>").addClass("location").html(this.location),
+			leftColumn = $("<div>").addClass("left-column").html(title).append(date).append(desc).append(price).append(location),
 			rightColumn = $("<div>").addClass("right-column");
-			poster = this.loadImageAndAppendTo(event.posterUrl, rightColumn),
+			poster = this.loadImageAndAppendTo(this.imageUrl, rightColumn),
 		this.html.append(leftColumn).append(rightColumn);
 		return this; // Chainability, lazy programming :)
 	}
 	
 }
-UpcomingEventSlide.prototype = Object.create(Slide.prototype);
-UpcomingEventSlide.prototype.constructor = UpcomingEventSlide;
-UpcomingEventSlide.prototype.parent = Slide.prototype;
+PostEventSlide.prototype = Object.create(Slide.prototype);
+PostEventSlide.prototype.constructor = PostEventSlide;
+PostEventSlide.prototype.parent = Slide.prototype;
 
 
 
-function PastEventSlide(event){
+function PastEventSlide(){
 	this.parent.constructor.call(this);
-	this.images;
-	this.title = event.title;
+
 	this.containerDiv;
 	this.maxNumberOfImages = 6;
 
-	this.setImages = function(images){
-		this.images = images;
-	}
+	this.images;
+	this.title;
 
+	var oldMakeHTML = this.makeHTML;
 	this.makeHTML = function(){
-		this.addOwl();
+		oldMakeHTML.call(this);
 		this.containerDiv = $("<div>").addClass("container");
 		this.renewImages();
 		this.html.append(this.containerDiv);
@@ -96,7 +109,7 @@ function PastEventSlide(event){
 				var photoDiv = $("<div>").addClass("photo")
 					.css({"-webkit-transform": "rotate("+deg+"deg", left: left, top: top})
 					.html(cropDiv);
-				this.loadImageAndAppendTo("https://flitcie.ch.tudelft.nl/var/resizes/"+this.images.photos[i], cropDiv);
+				this.loadImageAndAppendTo(this.images.photos[i], cropDiv);
 				this.containerDiv.append(photoDiv);
 			}
 		}
@@ -110,12 +123,14 @@ PastEventSlide.prototype.constructor = PastEventSlide;
 PastEventSlide.prototype.parent = Slide.prototype;
 
 
-function fullScreenImageSlide(fullScreenImage){
+function FullScreenImageSlide(){
 	this.parent.constructor.call(this);
-	this.fullScreenImage = fullScreenImage;
+	
+	this.fullScreenImage;
 
+	var oldMakeHTML = this.makeHTML;
 	this.makeHTML = function(){
-		
+		oldMakeHTML.call(this);	
 		var imageContainer = $("<div>").addClass("image-container");
 		this.loadImageAndAppendTo(this.fullScreenImage, imageContainer);
 		this.html.html(imageContainer);
@@ -129,9 +144,9 @@ function fullScreenImageSlide(fullScreenImage){
 	}
 }
 
-fullScreenImageSlide.prototype = Object.create(Slide.prototype);
-fullScreenImageSlide.prototype.constructor = fullScreenImageSlide;
-fullScreenImageSlide.prototype.parent = Slide.prototype;
+FullScreenImageSlide.prototype = Object.create(Slide.prototype);
+FullScreenImageSlide.prototype.constructor = FullScreenImageSlide;
+FullScreenImageSlide.prototype.parent = Slide.prototype;
 
 
 

@@ -7,12 +7,14 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 	const flitcieAPI = "fetchFlitciePhotos.php";
 	const posterRegex = '/https:\/\/ch\.tudelft\.nl\/sites\/default\/files\/[^"]+/';
 
+	const IMAGEFULLSCREEN = "image-fullscreen";
+
 	// singleton instance 
 	private static $instance; 
 
 	// private constructor function 
 	// to prevent external instantiation 
-	private __construct() { } 
+	private function __construct() { } 
 
 	// getInstance method 
 	public static function getInstance() { 
@@ -24,17 +26,48 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 
 	public static function generateSlides(){
 		$instance = self::getInstance();
-		$instance->fetchData();
+		return $instance->fetchData();
 	}
 
 	public function fetchData(){
 		$data = file_get_contents(self::API);
 		$items = json_decode($data);
-		array_map("parseItem", $items);
+		return array_map(array($this, "parseItem"), $items);
 	}
 
 	public function parseItem($item){
-		
+		// De eerste sortering geschied op event/ad
+		switch($item->type){
+			case "event":
+				return $this->parseEvent($item);
+				break;
+			case "tv_item":
+				return $this->slideForFullScreenImage($item);
+				break;
+			default:
+				return;
+		}
+	}
+
+	public function slideForFullScreenImage($item){
+		$slide = new FullScreenImageSlide($item->{self::IMAGEFULLSCREEN});
+		return $slide;
+	}
+
+	public function parseEvent($event){
+		$hasPictures = preg_match(self::flitcieRegex, $event->body, $matches);
+		if($hasPictures){
+			return $this->parsePastEvent($event, $matches[0]);
+		}
+		return false;
+	}
+
+	public function parsePastEvent($event, $flitcieUrl){
+		$flitciePhotos = FlitciePhotosFetcher::fetchPhotos($flitcieUrl);
+		$slide = new PastEventSlide();
+		$slide->hasTitle($event->title);
+		$slide->images = $flitciePhotos;
+		return $slide;
 	}
 }
 

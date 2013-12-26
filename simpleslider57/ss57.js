@@ -62,68 +62,61 @@ var ss57 = function(){
 }();
 
 var slideGenerator = function(){
-	var urlRegex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/i,
-		flitcieRegex = /https:\/\/flitcie\.ch\.tudelft\.nl\/([0-9]{1,3})\/([a-zA-Z0-9\-]+)/i,
-		api = "https://ch.tudelft.nl/api/tv/all.jsonp?callback=?",
-		flitcieAPI = "fetchFlitciePhotos.php",
-		posterRegex = /https:\/\/ch\.tudelft\.nl\/sites\/default\/files\/[^"]+/,
-		rawData;
-
+	
 	function fetchData(){
+		api = "server/api.php",
 		$.getJSON(api, function(data){
 			$.each(data, parseItem);
 		})
 	}
 
-	function parseItem(index, item){	
+	function parseItem(index, item){
+		var slide;
 		switch(item.type){
-			case "event":
-				parseEvent(item);
+			case "PostEventSlide":
+				slide = makePostEventSlide(item.slide);
 				break;
-			case "tv_item":
-				makeSlideForFullScreenImageItem(item);
+
+			case "PastEventSlide":
+				slide = makePastEventSlide(item.slide);
 				break;
-			default:
-				return;
+
+			case "FullScreenImageSlide":
+				slide = makeFullScreenImageSlide(item.slide);
+				break;
+
+			default: 
+				alert("Error, slide not implemented yet!");
 		}
+		slide.needsOwl = item.slide.needsOwl;
+		slide.makeHTML();
+		addSlide(slide);
+		console.log(slide);
 	}
 
-	function parseEvent(event){
-		var hasPictures = flitcieRegex.exec(event.body);
-		if(hasPictures) //  Als er foto's opstaan, dan is het event al geweest en willen we de foto's tonen.
-			return parsePastEvent(event); // Anders is het een upcoming event en dan moet het getoond worden!
-		// TODO misschien is het event al wel geweest, maar staan er nog geen fotos bij?
-		if(event['image-fullscreen'].length)
-			return makeSlideForFullScreenImageItem(event);
-		var poster_url = posterRegex.exec(event.image);
-		console.log(poster_url);
-		event.posterUrl = poster_url[0];
-
-		var slide = new UpcomingEventSlide(event);
-		addSlide(slide.makeHTML());
+	function makePostEventSlide(event){
+		var slide = new PostEventSlide();
+		slide.title = event.title;
+		slide.date = event.readableDate;
+		slide.desc = event.desc;
+		slide.location = event.location;
+		slide.price = event.price;
+		slide.imageUrl = event.imageUrl;
+		return slide;
 	}
 
-	function parseEventImage(data){
-		return $(data);
+	function makePastEventSlide(event){
+		var slide = new PastEventSlide();
+		slide.title = event.title;
+		slide.images = event.images;
+		return slide;
 	}
 
-	function parsePastEvent(event){
-		var flitcieURL = flitcieRegex.exec(event.body);
-		var slide = new PastEventSlide(event);
-		addSlide(slide.makeHTML());
-		$.getJSON(flitcieAPI + "?url=" + flitcieURL[0], function(images){
-			makeSlideWithImages(images, slide);
-		});
-	}
-
-	function makeSlideWithImages(images, slide){
-		slide.setImages(images);
-		slide.makeHTML()
-	}
-
-	function makeSlideForFullScreenImageItem(item){
-		var slide = new fullScreenImageSlide(item['image-fullscreen']);
-		addSlide(slide.makeHTML());
+	function makeFullScreenImageSlide(item){
+		var slide = new FullScreenImageSlide();
+		slide.fullScreenImage = item.imageBlock;
+		return slide;
+		
 	}
 
 	function addSlide(slide){
@@ -134,7 +127,6 @@ var slideGenerator = function(){
 		start: fetchData
 	}
 }();
-
 
 
 

@@ -1,7 +1,7 @@
 <?php
 class Slide {
-	private var $needsOwl;
-	public var $title;
+	private $needsOwl;
+	public $title;
 
 	function __construct(){
 		$this->needsOwl = false;
@@ -12,30 +12,31 @@ class Slide {
 		return $returnValue;
 	}
 
-	function setNeedsOwl($bool){
-		$this->needsOwl = $bool;
+	function hasTitle($title){
+		$this->needsOwl = true;
+		$this->title = $title;
 	}
 }
 
 class UpcomingEventSlide extends Slide{
-	public var $readableDate;
-	public var $desc;
-	public var $imageUrl;
-	public var $price;
-	public var $location;
+	public $readableDate;
+	public $desc;
+	public $imageUrl;
+	public $price;
+	public $location;
 }
 
 class PastEventSlide extends Slide{
-	public var $images;
-
-	function PastEventSlide(){
-		parent::__construct();
-		$this->needsOwl = true;
-	}
+	public $images;
 }
 
 class FullScreenImageSlide extends Slide{
-	public var $imageUrl;
+	public $imageBlock;
+
+	function __construct($imageBlock){
+		parent::__construct();
+		$this->imageBlock = $imageBlock;
+	}
 }
 
 
