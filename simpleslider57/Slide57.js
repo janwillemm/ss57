@@ -148,6 +148,25 @@ FullScreenImageSlide.prototype = Object.create(Slide.prototype);
 FullScreenImageSlide.prototype.constructor = FullScreenImageSlide;
 FullScreenImageSlide.prototype.parent = Slide.prototype;
 
+function LoadScreenSlide(){
+	this.parent.constructor.call(this);
+
+	var oldMakeHTML = this.makeHTML;
+	this.makeHTML = function(){
+		oldMakeHTML.call(this);	
+		var imageContainer = $("<div>").addClass("image-container center");
+		var loadText = $("<h1>").addClass("loading center").text("Loading.....");
+		this.loadImageAndAppendTo("images/owl.jpg", imageContainer);
+		this.html.html(loadText).append(imageContainer);
+		
+		return this;
+	}
+}
+
+LoadScreenSlide.prototype = Object.create(Slide.prototype);
+LoadScreenSlide.prototype.constructor = LoadScreenSlide;
+LoadScreenSlide.prototype.parent = Slide.prototype;
+
 
 
 

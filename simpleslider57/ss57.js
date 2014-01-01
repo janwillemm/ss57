@@ -5,31 +5,57 @@ var ss57 = function(){
 		switchTime = 10000, // 10 seconds
 		isRunning = false;
 
-	function addSlide(slide){
-		$(document.body).append(slide.html);
-		slides.push(slide);
-		if(!isRunning){
-			isRunning = true;
-			showNextSlide();
-			startSlideShow();
+
+	function start(){
+		updater.start();
+		addSlide(new LoadScreenSlide());
+		addSlide(new LoadScreenSlide());
+		startSlideShow();
+		slideGenerator.fetchSlides(loadedSlides);
+	}
+
+	function refreshAll(){
+		slideGenerator.fetchSlides(loadedSlides);
+	}
+
+	function loadedSlides(newSlides){
+		if(isRunning){ // Als er al een slideshow bezig is, dan stoppen we deze.
+			removeAllSlides();
 		}
+		$.each(newSlides, function(index, slide){
+			addSlide(slide);
+		});
+		startSlideShow();
+	}
+
+	function removeAllSlides(){
+		stopSlideShow();
+		$(document.body).empty();
+		slides.clear();
+		this.currentSlide = 0;
+	}
+
+	function addSlide(slide){
+		$(document.body).append(slide.makeHTML().html);
+		slides.push(slide);
 	}
 
 	function startSlideShow(){
 		if(interval)
 			stopSlideShow();
-
+		showNextSlide();
 		interval = setInterval(function(){
 			showNextSlide();
-			isRunning = true;
 		}, switchTime);
 	}
 
 	function showNextSlide(){
+		isRunning = true;
 		renewSlideNumber = (currentSlide - 1) % slides.length;
 		if(renewSlideNumber < 0)
 			renewSlideNumber = slides.length + renewSlideNumber;
 		nextSlideNumber = (currentSlide + 1) % slides.length;
+		console.log(renewSlideNumber + " - " + currentSlide + " - " + nextSlideNumber);
 		renewSlide(renewSlideNumber)
 		hideSlide(currentSlide);
 		showSlide(nextSlideNumber);
@@ -55,22 +81,62 @@ var ss57 = function(){
 		clearInterval(interval);
 		isRunning = false;
 	}
+
 	return {
+		start: start,
+		refreshAll: refreshAll,
 		addSlide: addSlide,
 		stop: stopSlideShow
 	}
 }();
 
+var updater = function(){
+
+	var interval,
+		updateTime = 5000;
+
+	function start(){
+		interval = setInterval(function(){
+			poll();
+		}, updateTime);
+	}
+
+	function stop(){
+		clearInterval(interval);
+	}
+
+	function poll(){
+		$.get("server/update.php", function(data){
+			parseData(data);
+		});
+	}
+
+	function parseData(data){
+		switch(data.type){
+			case "refreshAll":
+				ss57.refreshAll();
+				break;
+
+		}
+	}
+
+
+	return {
+		start: start
+	}
+}();
+
 var slideGenerator = function(){
 	
-	function fetchData(){
+	function fetchData(callback){
 		api = "server/api.php",
 		$.getJSON(api, function(data){
-			$.each(data, parseItem);
+			var slides = $.map(data, parseItem);
+			callback(slides);
 		})
 	}
 
-	function parseItem(index, item){
+	function parseItem(item){
 		var slide;
 		switch(item.type){
 			case "PostEventSlide":
@@ -89,9 +155,7 @@ var slideGenerator = function(){
 				alert("Error, slide not implemented yet!");
 		}
 		slide.needsOwl = item.slide.needsOwl;
-		slide.makeHTML();
-		addSlide(slide);
-		console.log(slide);
+		return slide;
 	}
 
 	function makePostEventSlide(event){
@@ -119,12 +183,9 @@ var slideGenerator = function(){
 		
 	}
 
-	function addSlide(slide){
-		ss57.addSlide(slide);
-	}
-
 	return {
-		start: fetchData
+		fetchSlides: fetchData,
+		parseItem : parseItem
 	}
 }();
 

@@ -14,6 +14,12 @@ Array.prototype.clean = function(deleteValue) {
   return this;
 };
 
+Array.prototype.clear = function() {
+  while (this.length > 0) {
+    this.pop();
+  }
+};
+
 Array.prototype.shuffle = function(){
     var counter = this.length, temp, index;
 

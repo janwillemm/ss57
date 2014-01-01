@@ -9,6 +9,21 @@ html, body {
 	background-color: #C4D3D7;
 }
 
+div.image-container.center img {
+	position:relative;
+	width:100%;
+}
+
+h1.loading{
+	position:absolute;
+	color:white;
+	font-family:'Dosis', 'Lato', sans-serif;
+	font-size:100px;
+	left:800px;
+	font-weight: 100;
+	z-index:200;
+}
+
 .slide .CHLogo{
 	background-image:url('../images/logo_ch.png');
 	background-size: 100%;
