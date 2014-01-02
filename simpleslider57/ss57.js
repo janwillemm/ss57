@@ -44,9 +44,6 @@ var ss57 = function(){
 		if(interval)
 			stopSlideShow();
 		showNextSlide();
-		interval = setInterval(function(){
-			showNextSlide();
-		}, switchTime);
 	}
 
 	function showNextSlide(){
@@ -55,7 +52,6 @@ var ss57 = function(){
 		if(renewSlideNumber < 0)
 			renewSlideNumber = slides.length + renewSlideNumber;
 		nextSlideNumber = (currentSlide + 1) % slides.length;
-		console.log(renewSlideNumber + " - " + currentSlide + " - " + nextSlideNumber);
 		renewSlide(renewSlideNumber)
 		hideSlide(currentSlide);
 		showSlide(nextSlideNumber);
@@ -65,6 +61,9 @@ var ss57 = function(){
 		var slide = slides[number];
 		currentSlide = number;
 		slide.show();
+		interval = setTimeout(function(){
+			showNextSlide();
+		}, slide.time*1000);
 	}
 
 	function hideSlide(number){
@@ -158,6 +157,7 @@ var slideGenerator = function(){
 				alert("Error, slide not implemented yet!");
 		}
 		slide.needsOwl = item.slide.needsOwl;
+		slide.time = item.slide.time;
 		return slide;
 	}
 

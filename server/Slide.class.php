@@ -2,9 +2,11 @@
 class Slide {
 	private $needsOwl;
 	public $title;
+	public $time; // in seconds
 
 	function __construct(){
 		$this->needsOwl = false;
+		$this->time = 10;
 	}
 	function expose(){
 		$object = get_object_vars($this);
@@ -37,6 +39,7 @@ class PastEventSlide extends Slide{
 	function __construct(){
 		parent::__construct();
 		$this->needsOwl = true;
+		$this->time = 5;
 	}
 }
 
@@ -46,6 +49,7 @@ class FullScreenImageSlide extends Slide{
 	function __construct($imageBlock){
 		parent::__construct();
 		$this->imageBlock = $imageBlock;
+		$this->time = 30;
 	}
 }
 

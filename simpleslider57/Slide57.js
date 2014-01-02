@@ -2,6 +2,7 @@ function Slide(){
 	this.html;
 	this.active;
 	this.needsOwl;
+	this.time;
 
 	this.show = function(){
 		this.html.addClass("show");
