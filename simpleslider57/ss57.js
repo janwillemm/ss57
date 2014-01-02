@@ -92,7 +92,7 @@ var ss57 = function(){
 var updater = function(){
 
 	var interval,
-		updateTime = 5000;
+		updateTime = 10000;
 
 	function start(){
 		interval = setInterval(function(){
