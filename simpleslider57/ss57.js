@@ -113,8 +113,11 @@ var updater = function(){
 
 	function parseData(data){
 		switch(data.type){
-			case "refreshAll":
+			case "refreshAllSlides":
 				ss57.refreshAll();
+				break;
+			case "newSlide":
+				ss57.addSlide(slideGenerator.parseItem(data.slide));
 				break;
 
 		}

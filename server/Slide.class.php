@@ -24,10 +24,20 @@ class UpcomingEventSlide extends Slide{
 	public $imageUrl;
 	public $price;
 	public $location;
+
+	function __construct(){
+		parent::__construct();
+		$this->needsOwl = true;
+	}
 }
 
 class PastEventSlide extends Slide{
 	public $images;
+
+	function __construct(){
+		parent::__construct();
+		$this->needsOwl = true;
+	}
 }
 
 class FullScreenImageSlide extends Slide{
@@ -39,6 +49,23 @@ class FullScreenImageSlide extends Slide{
 	}
 }
 
+class StatisticsSlide extends Slide{
+	public $dataArray;
+	public $body;
+	public $title;
+	public $xAxis;
+	public $yAxis;
+	public $imageUrl;
+
+	function __construct(){
+		parent::__construct();
+		$this->needsOwl = true;
+	}
+}
+
+class CustomHtmlSlide extends Slide{
+	public $customHtml;
+}
 
 
 

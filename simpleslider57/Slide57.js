@@ -107,7 +107,10 @@ function PastEventSlide(){
 				var top = randomFromInterval(-5,5);
 				var cropDiv = $("<div>").addClass("photoCrop");
 				var photoDiv = $("<div>").addClass("photo")
-					.css({"-webkit-transform": "rotate("+deg+"deg", left: left, top: top})
+					.css({
+						"-webkit-transform": "rotate("+deg+"deg", left: left, top: top,
+						"-moz-transform": "rotate("+deg+"deg", left: left, top: top
+					})
 					.html(cropDiv);
 				this.loadImageAndAppendTo(this.images.photos[i], cropDiv);
 				this.containerDiv.append(photoDiv);
@@ -168,7 +171,40 @@ LoadScreenSlide.prototype.constructor = LoadScreenSlide;
 LoadScreenSlide.prototype.parent = Slide.prototype;
 
 
+function StatisticsSlide(){
+	this.parent.constructor.call(this);
 
+	this.dataArray;
+	this.body;
+	this.title;
+	this.xAxis;
+	this.yAxis;
+	this.imageUrl;
 
+	var oldMakeHTML = this.makeHTML;
+	this.makeHTML = function(){
+		oldMakeHTML.call(this);	
+		
+		return this;
+	}
+}
+
+StatisticsSlide.prototype = Object.create(Slide.prototype);
+StatisticsSlide.prototype.constructor = StatisticsSlide;
+StatisticsSlide.prototype.parent = Slide.prototype;
+
+function CustomHtmlSlide(){
+	this.parent.constructor.call(this);
+
+	this.customHtml;
+
+	var oldMakeHTML = this.makeHTML;
+	this.makeHTML = function(){
+		oldMakeHTML.call(this);	
+		this.html.html(this.customHtml);
+		return this;
+	}
+
+}
 
 
