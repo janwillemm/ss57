@@ -56,7 +56,7 @@ div.fact{
 }
 
 div.fact div.factOwl{
-	background-image:url("../images/smartOwl.png");
+	background-image:url("../images/smartowl.png");
 	float:left;
     width:200px;
     height:200px;
@@ -65,7 +65,7 @@ div.fact div.factOwl{
 }
 
 div.fact h2.fact{
-	font-family:'sneakersscriptmediumregular', 'Dosis', 'Lato', sans-serif;
+	font-family:'Dosis', 'Lato', sans-serif;
 	margin:0;
 	color:#666;
 	max-width: 700px;
