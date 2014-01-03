@@ -3,9 +3,15 @@
 class SlideGenerator implements ISlideGenerator{
 
 	public static function generateSlides(){
-		$differentSlides = array();
+		$slides = array();
+
+		$staticSlides = StaticSlideGenerator::generateSlides();
 		$CHSiteSlides = CHSiteSlideGenerator::generateSlides();
-		return $CHSiteSlides;
+
+		$slides = array_merge($CHSiteSlides, $staticSlides);
+		
+		shuffle($slides);
+		return $slides;
 	}
 }
 

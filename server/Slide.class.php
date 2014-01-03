@@ -39,7 +39,7 @@ class PastEventSlide extends Slide{
 	function __construct(){
 		parent::__construct();
 		$this->needsOwl = true;
-		$this->time = 5;
+		$this->time = 10;
 	}
 }
 
@@ -69,6 +69,15 @@ class StatisticsSlide extends Slide{
 
 class CustomHtmlSlide extends Slide{
 	public $customHtml;
+}
+
+class FactSlide extends Slide{
+	public $fact;
+
+	function __construct(){
+		parent::__construct();
+		$this->needsOwl = true;
+	}
 }
 
 

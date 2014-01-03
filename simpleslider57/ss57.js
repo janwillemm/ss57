@@ -7,7 +7,7 @@ var ss57 = function(){
 
 
 	function start(){
-		updater.start();
+		//updater.start();
 		addSlide(new LoadScreenSlide());
 		addSlide(new LoadScreenSlide());
 		startSlideShow();
@@ -48,13 +48,25 @@ var ss57 = function(){
 
 	function showNextSlide(){
 		isRunning = true;
+		if(slides.length == 1){ // If we have 1 slide, then we should not go round.
+			console.log(slides);
+			return showSlide(0);
+		}
 		renewSlideNumber = (currentSlide - 1) % slides.length;
 		if(renewSlideNumber < 0)
 			renewSlideNumber = slides.length + renewSlideNumber;
-		nextSlideNumber = (currentSlide + 1) % slides.length;
-		renewSlide(renewSlideNumber)
+
 		hideSlide(currentSlide);
+
+		if(currentSlide == slides.length-1){	
+			slides.shuffle();
+		}
+		nextSlideNumber = (currentSlide + 1) % slides.length;
 		showSlide(nextSlideNumber);
+	}
+
+	function shuffleSlides(){
+		slides.shuffle();
 	}
 
 	function showSlide(number){
@@ -153,6 +165,9 @@ var slideGenerator = function(){
 				slide = makeFullScreenImageSlide(item.slide);
 				break;
 
+			case "FactSlide":
+				slide = makeFactSlide(item.slide);
+				break;
 			default: 
 				alert("Error, slide not implemented yet!");
 		}
@@ -184,6 +199,13 @@ var slideGenerator = function(){
 		slide.fullScreenImage = item.imageBlock;
 		return slide;
 		
+	}
+
+	function makeFactSlide(item){
+		var slide = new FactSlide();
+		slide.title = item.title;
+		slide.fact = item.fact;
+		return slide;
 	}
 
 	return {

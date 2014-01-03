@@ -39,3 +39,7 @@ function randomFromInterval(from,to)
 {
     return Math.floor(Math.random()*(to-from+1)+from);
 }
+
+function randomInteger( max ) {
+  return Math.floor( Math.random() * max );
+}

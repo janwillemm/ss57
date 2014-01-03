@@ -154,14 +154,14 @@ FullScreenImageSlide.prototype.parent = Slide.prototype;
 
 function LoadScreenSlide(){
 	this.parent.constructor.call(this);
-
+	this.time = 10000;
 	var oldMakeHTML = this.makeHTML;
+
 	this.makeHTML = function(){
 		oldMakeHTML.call(this);	
-		var imageContainer = $("<div>").addClass("image-container center");
+		var imageContainer = $("<div>").addClass("loading centerContent");
 		var loadText = $("<h1>").addClass("loading center").text("Loading.....");
-		this.loadImageAndAppendTo("images/owl.jpg", imageContainer);
-		this.html.html(loadText).append(imageContainer);
+		this.html.html(imageContainer.html(loadText));
 		
 		return this;
 	}
@@ -207,5 +207,33 @@ function CustomHtmlSlide(){
 	}
 
 }
+
+function FactSlide(){
+	this.parent.constructor.call(this);
+	this.fact;
+	this.title;
+
+	var oldMakeHTML = this.makeHTML;
+	this.makeHTML = function(){
+		oldMakeHTML.call(this);	
+		var container = $("<div>").addClass("randomBackground");
+		var anotherContainer = $("<div>").addClass("centerContent fact")
+		var fact = $("<H2>").text(this.fact).addClass("fact");
+		var factOwl = $("<div>").addClass("factOwl");
+		this.html.append(container.html(anotherContainer.html(factOwl).append(fact)));
+
+		return this;
+	}
+
+	var oldShow = this.show;
+	this.show = function(){
+		oldShow.call(this);
+		this.html.find("div.randomBackground").css({"background-color": "rgb("+randomInteger(216)+","+randomInteger(216)+","+randomInteger(216)+")"});
+	}
+}
+
+FactSlide.prototype = Object.create(Slide.prototype);
+FactSlide.prototype.constructor = FactSlide;
+FactSlide.prototype.parent = Slide.prototype;
 
 
