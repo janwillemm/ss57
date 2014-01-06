@@ -100,7 +100,7 @@ function PastEventSlide(){
 	this.renewImages = function(){
 		if(this.images){
 			this.containerDiv.empty();
-			this.images.photos.shuffle()
+			this.images.shuffle();
 			var maxIndex = Math.min(this.images.length, this.maxNumberOfImages);
 			for(var i = 0; i < maxIndex; i++){
 				var deg = randomFromInterval(-5,5);
@@ -113,7 +113,7 @@ function PastEventSlide(){
 						"-moz-transform": "rotate("+deg+"deg", left: left, top: top
 					})
 					.html(cropDiv);
-				this.loadImageAndAppendTo(this.images.photos[i], cropDiv);
+				this.loadImageAndAppendTo(this.images[i], cropDiv);
 				this.containerDiv.append(photoDiv);
 			}
 		}

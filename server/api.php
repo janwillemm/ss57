@@ -1,10 +1,5 @@
 <?php
-require_once("Slide.class.php");
-require_once("ISlideGenerator.interface.php");
-require_once("SlideGenerator.class.php");
-require_once("CHSiteSlideGenerator.class.php");
-require_once("StaticSlideGenerator.class.php");
-require_once("FlitciePhotosFetcher.class.php");
+require_once("autoLoader.php");
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 header('Content-type: application/json');

@@ -30,7 +30,7 @@ var ss57 = function(){
 
 	function removeAllSlides(){
 		stopSlideShow();
-		$(document.body).empty();
+		$(document.body).html($("<div>").addClass("nextSlideSlider"));
 		slides.clear();
 		this.currentSlide = 0;
 	}
@@ -49,7 +49,6 @@ var ss57 = function(){
 	function showNextSlide(){
 		isRunning = true;
 		if(slides.length == 1){ // If we have 1 slide, then we should not go round.
-			console.log(slides);
 			return showSlide(0);
 		}
 		renewSlideNumber = (currentSlide - 1) % slides.length;
@@ -76,6 +75,7 @@ var ss57 = function(){
 		interval = setTimeout(function(){
 			showNextSlide();
 		}, slide.time*1000);
+		slideNextSlideSlider(slide.time*1000);
 	}
 
 	function hideSlide(number){
@@ -91,6 +91,15 @@ var ss57 = function(){
 	function stopSlideShow(){
 		clearInterval(interval);
 		isRunning = false;
+	}
+
+	function slideNextSlideSlider(time){
+		var nextSlideSlider = $("div.nextSlideSlider").finish();
+		nextSlideSlider.animate({
+			width:"1920px"
+		}, time, function(){
+			$(this).removeAttr('style');
+		});
 	}
 
 	return {
