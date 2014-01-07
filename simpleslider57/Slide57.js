@@ -244,19 +244,15 @@ FactSlide.prototype.parent = Slide.prototype;
 function WhosThatPokemonSlide(){
 	this.parent.constructor.call(this);
 
+	var oldShow = this.show;
 	this.show = function(){
-		this.html.addClass("show");
-		this.active = true;
+		oldShow.call(this);
 		document.getElementById("pokemonFrame").contentWindow.revealIn(5);
 	}
 
-	this.hide = function(){
-		this.html.removeClass("show");
-		this.active = false;
-	}
-
 	this.renew = function() {
-		document.getElementById("pokemonFrame").src = "http://jgadelange.github.io/whosthatpokemon/#" + Math.floor(Math.random() * 5502);
+		var url = "http://jgadelange.github.io/whosthatpokemon/#" + Math.floor(Math.random() * 5502);
+		this.html.find("#pokemonFrame").attr({"src": url});
 	}
 
 	var oldMakeHTML = this.makeHTML;
@@ -264,6 +260,8 @@ function WhosThatPokemonSlide(){
 		oldMakeHTML.call(this);
 		var iframe = $("<iframe id='pokemonFrame'>");
 		this.html.append(iframe);
+		this.renew();
+		return this;
 	}
 }
 

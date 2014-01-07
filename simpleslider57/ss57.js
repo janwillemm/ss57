@@ -220,13 +220,13 @@ var slideGenerator = function(){
 
 	function makeWhosThatPokemonSlide(item){
 		var slide = new WhosThatPokemonSlide();
-		slide.renew();
-		return slide();
+		return slide;
 	}
 
 	return {
 		fetchSlides: fetchData,
-		parseItem : parseItem
+		parseItem : parseItem,
+		makeWhosThatPokemonSlide : makeWhosThatPokemonSlide
 	}
 }();
 
