@@ -25,6 +25,7 @@ var ss57 = function(){
 		$.each(newSlides, function(index, slide){
 			addSlide(slide);
 		});
+		addSlide(slideGenerator.makeWhosThatPokemonSlide());
 		startSlideShow();
 	}
 
@@ -215,6 +216,12 @@ var slideGenerator = function(){
 		slide.title = item.title;
 		slide.fact = item.fact;
 		return slide;
+	}
+
+	function makeWhosThatPokemonSlide(item){
+		var slide = new WhosThatPokemonSlide();
+		slide.renew();
+		return slide();
 	}
 
 	return {
