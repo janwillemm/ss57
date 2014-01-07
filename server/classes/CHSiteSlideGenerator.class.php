@@ -72,7 +72,7 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 		// } else {
 			$flitciePhotos = FlitciePhotosFetcher::fetchPhotos($flitcieUrl);
 			//DatabaseConnection::getInstance()->setImageUrlsForEventId($flitciePhotos, $event->nid);
-		}
+		//}
 		shuffle($flitciePhotos);
 		$slide = new PastEventSlide();
 		$slide->hasTitle($event->title);
