@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 spl_autoload_register(NULL, FALSE);
 
 spl_autoload_extensions('.php');
@@ -22,12 +25,11 @@ class Autoloader
                 {
                         return;
                 }
-                $class = strtolower($class);
                 if (file_exists(dirname(__FILE__) . '/classes/'.$class . '.class.php'))
                 {
                         require_once(dirname(__FILE__) . '/classes/'.$class . '.class.php');
                 }
-                elseif(strpos($class,'slide') !== false){
+                elseif(strpos($class,'Slide') !== false){
                         require_once(dirname(__FILE__) . '/classes/Slide.class.php');
                 }
                 else
