@@ -4,6 +4,7 @@ class DatabaseSlideGenerator implements ISlideGenerator{
 	public static function generateSlides(){
 		$slides = array();
 		$slides = array_merge($slides, self::makeFactSlides());
+		$slides = array_merge($slides, self::makeQuoteSlides());
 		
 		return $slides;
 	}
@@ -31,7 +32,7 @@ class DatabaseSlideGenerator implements ISlideGenerator{
 			$slide = new FactSlide();
 			$slide->title = "Wist je dat...";
 			$slide->fact = "..." . $factElement['quote'];
-			$slide->name = "..." . $factElement['person'];
+			$slide->name = $factElement['person'];
 			$slides[] = $slide;
 		}
 		return $slides;

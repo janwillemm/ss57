@@ -212,6 +212,7 @@ function FactSlide(){
 	this.parent.constructor.call(this);
 	this.fact;
 	this.title;
+	this.name;
 
 	var oldMakeHTML = this.makeHTML;
 	this.makeHTML = function(){
@@ -219,8 +220,12 @@ function FactSlide(){
 		var container = $("<div>").addClass("randomBackground");
 		var anotherContainer = $("<div>").addClass("centerContent fact")
 		var fact = $("<H2>").text(this.fact).addClass("fact");
-		var factOwl = $("<div>").addClass("factOwl");
-		this.html.append(container.html(anotherContainer.html(factOwl).append(fact)));
+		var factOwl = $("<div>").addClass("image " + (this.name ? "quote" : "factOwl"));
+		var name = $("<h3>").addClass("person");
+		if(this.name){
+			name.text("- " + this.name);
+		}
+		this.html.append(container.html(anotherContainer.html(factOwl).append(fact).append(name)));
 
 		return this;
 	}

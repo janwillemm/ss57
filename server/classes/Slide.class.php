@@ -73,6 +73,7 @@ class CustomHtmlSlide extends Slide{
 
 class FactSlide extends Slide{
 	public $fact;
+	public $name;
 
 	function __construct(){
 		parent::__construct();
