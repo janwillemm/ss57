@@ -7,7 +7,7 @@ var ss57 = function(){
 
 
 	function start(){
-		//updater.start();
+		updater.start();
 		addSlide(new LoadScreenSlide());
 		addSlide(new LoadScreenSlide());
 		startSlideShow();
