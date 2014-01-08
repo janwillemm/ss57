@@ -79,6 +79,19 @@ class DatabaseConnection{
 		$stmt = $this->PDO->prepare("DELETE FROM $this->DBNAME_FLITCIE WHERE event_id = :event_id");
 		$stmt->execute($params);
 	}
+
+	public function updateSetting($name, $value){
+		$params = array(':value' => $value, ':name' => $name);
+		$stmt = $this->PDO->prepare("UPDATE $this->DBNAME_SETTINGS SET value = :value WHERE name = :name");
+		$stmt->execute($params);
+	}
+
+	public function getSetting($name){
+		$params = array(':name' => $name);
+ 		$stmt = $this->PDO->prepare("SELECT * FROM $this->DBNAME_SETTINGS WHERE name=:name");
+ 		$stmt->execute($params);
+ 		return $stmt->fetch();
+	}
 }
 
 ?>
