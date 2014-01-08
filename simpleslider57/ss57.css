@@ -84,15 +84,16 @@ div.fact div.quote{
 div.fact h2.fact{
 	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin:0;
-	color:#999;
-	max-width: 700px;
+	color:#666;
+	max-width: 900px;
 	font-size:70px;
+	float:left;
 }
 
 div.fact h3{
 	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin:0;
-	color:#333;
+	color:#999;
 	max-width: 700px;
 	font-size:30px;
 }

@@ -32,7 +32,9 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 	public function fetchData(){
 		$data = file_get_contents(self::API);
 		$items = json_decode($data);
-		return array_map(array($this, "parseItem"), $items);
+		$slides = array_map(array($this, "parseItem"), $items);
+		
+		return $slides;
 	}
 
 	public function parseItem($item){
@@ -59,20 +61,23 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 		if($hasPictures){
 			return $this->parsePastEvent($event, $matches[0]);
 		}
-		return false;
+		elseif($event->{self::IMAGEFULLSCREEN}){
+			return $this->slideForFullScreenImage($event);
+		}
+		return;
 	}
 
 	public function parsePastEvent($event, $flitcieUrl){
 		$flitciePhotos;
-		// $data = DatabaseConnection::getInstance()->getImageUrlsForEventId($event->nid);
-		// if($data){
-		// 	foreach($data as $photoElement){
-		// 		$flitciePhotos[] = $photoElement['url'];
-		// 	}
-		// } else {
+		$data = DatabaseConnection::getInstance()->getImageUrlsForEventId($event->nid);
+		if($data){
+			foreach($data as $photoElement){
+				$flitciePhotos[] = $photoElement['url'];
+			}
+		} else {
 			$flitciePhotos = FlitciePhotosFetcher::fetchPhotos($flitcieUrl);
-			//DatabaseConnection::getInstance()->setImageUrlsForEventId($flitciePhotos, $event->nid);
-		//}
+			DatabaseConnection::getInstance()->setImageUrlsForEventId($flitciePhotos, $event->nid);
+		}
 		shuffle($flitciePhotos);
 		$slide = new PastEventSlide();
 		$slide->hasTitle($event->title);

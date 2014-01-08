@@ -54,7 +54,7 @@ var ss57 = function(){
 		renewSlideNumber = (currentSlide - 1) % slides.length;
 		if(renewSlideNumber < 0)
 			renewSlideNumber = slides.length + renewSlideNumber;
-
+		renewSlide(renewSlideNumber);
 		hideSlide(currentSlide);
 
 		if(currentSlide == slides.length-1){	

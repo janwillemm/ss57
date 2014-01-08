@@ -32,7 +32,7 @@ class DatabaseSlideGenerator implements ISlideGenerator{
 			$slide = new FactSlide();
 			$slide->title = "Wist je dat...";
 			$slide->fact = "..." . $factElement['quote'];
-			$slide->name = $factElement['person'];
+			$slide->name = $factElement['name'];
 			$slides[] = $slide;
 		}
 		return $slides;

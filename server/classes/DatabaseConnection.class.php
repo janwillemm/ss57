@@ -41,7 +41,7 @@ class DatabaseConnection{
  		return $stmt->execute($params);
 	}
 
-	public function getAll($dbnaam, $classname){
+	public function getAll($dbnaam, $classname = false){
 		$stmt = $this->PDO->prepare("SELECT * FROM $dbnaam;");
 		$stmt->execute();
 		if($classname)
