@@ -25,6 +25,7 @@ var ss57 = function(){
 		$.each(newSlides, function(index, slide){
 			addSlide(slide);
 		});
+		addSlide(slideGenerator.makeWhosThatPokemonSlide());
 		startSlideShow();
 	}
 
@@ -217,9 +218,15 @@ var slideGenerator = function(){
 		return slide;
 	}
 
+	function makeWhosThatPokemonSlide(item){
+		var slide = new WhosThatPokemonSlide();
+		return slide;
+	}
+
 	return {
 		fetchSlides: fetchData,
-		parseItem : parseItem
+		parseItem : parseItem,
+		makeWhosThatPokemonSlide : makeWhosThatPokemonSlide
 	}
 }();
 

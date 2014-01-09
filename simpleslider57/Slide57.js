@@ -241,4 +241,30 @@ FactSlide.prototype = Object.create(Slide.prototype);
 FactSlide.prototype.constructor = FactSlide;
 FactSlide.prototype.parent = Slide.prototype;
 
+function WhosThatPokemonSlide(){
+	this.parent.constructor.call(this);
 
+	var oldShow = this.show;
+	this.show = function(){
+		oldShow.call(this);
+		document.getElementById("pokemonFrame").contentWindow.postMessage("reveal#5");
+	}
+
+	this.renew = function() {
+		var url = "http://jgadelange.github.io/whosthatpokemon/#" + Math.floor(Math.random() * 5502);
+		this.html.find("#pokemonFrame").attr({"src": url});
+	}
+
+	var oldMakeHTML = this.makeHTML;
+	this.makeHTML = function(){
+		oldMakeHTML.call(this);
+		var iframe = $("<iframe id='pokemonFrame'>").width(1920).height(1080);
+		this.html.append(iframe);
+		this.renew();
+		return this;
+	}
+}
+
+WhosThatPokemonSlide.prototype = Object.create(Slide.prototype);
+WhosThatPokemonSlide.prototype.constructor = WhosThatPokemonSlide;
+WhosThatPokemonSlide.prototype.parent = Slide.prototype;
