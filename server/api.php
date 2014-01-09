@@ -9,10 +9,12 @@ function l57($data){
 }
 
 function expose($slide){
-	return $slide->expose();
+	if($slide)
+		return $slide->expose();
 }
 
 $slides = SlideGenerator::generateSlides();
+
 echo json_encode(array_map("expose", $slides));
 
 ?>
