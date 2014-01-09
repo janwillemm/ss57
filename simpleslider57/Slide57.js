@@ -243,14 +243,17 @@ FactSlide.prototype.parent = Slide.prototype;
 
 function WhosThatPokemonSlide(){
 	this.parent.constructor.call(this);
+	this.time = 15;
 
 	var oldShow = this.show;
 	this.show = function(){
 		oldShow.call(this);
-		document.getElementById("pokemonFrame").contentWindow.postMessage("reveal#5", "http://jgadelange.github.io");
+		document.getElementById("pokemonFrame").contentWindow.postMessage("reveal#10", "http://jgadelange.github.io");
 	}
 
+	var oldRenew = this.renew;
 	this.renew = function() {
+		oldRenew.call(this);
 		var url = "http://jgadelange.github.io/whosthatpokemon/#" + Math.floor(Math.random() * 5502);
 		this.html.find("#pokemonFrame").attr({"src": url});
 	}

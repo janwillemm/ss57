@@ -24,9 +24,8 @@ var ss57 = function(){
 		}
 		$.each(newSlides, function(index, slide){
 			addSlide(slide);
-			addSlide(slideGenerator.makeWhosThatPokemonSlide());
 		});
-		
+		addSlide(slideGenerator.makeWhosThatPokemonSlide());
 		startSlideShow();
 	}
 
