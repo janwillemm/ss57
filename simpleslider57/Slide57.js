@@ -247,7 +247,7 @@ function WhosThatPokemonSlide(){
 	var oldShow = this.show;
 	this.show = function(){
 		oldShow.call(this);
-		document.getElementById("pokemonFrame").contentWindow.revealIn(5);
+		document.getElementById("pokemonFrame").postMessage("reveal#5");
 	}
 
 	this.renew = function() {
