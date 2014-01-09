@@ -247,7 +247,7 @@ function WhosThatPokemonSlide(){
 	var oldShow = this.show;
 	this.show = function(){
 		oldShow.call(this);
-		document.getElementById("pokemonFrame").postMessage("reveal#5");
+		document.getElementById("pokemonFrame").contentWindow.postMessage("reveal#5");
 	}
 
 	this.renew = function() {
@@ -258,7 +258,7 @@ function WhosThatPokemonSlide(){
 	var oldMakeHTML = this.makeHTML;
 	this.makeHTML = function(){
 		oldMakeHTML.call(this);
-		var iframe = $("<iframe id='pokemonFrame'>");
+		var iframe = $("<iframe id='pokemonFrame'>").width(1920).height(1080);
 		this.html.append(iframe);
 		this.renew();
 		return this;
