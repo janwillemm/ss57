@@ -2,7 +2,7 @@ function Slide(){
 	this.html;
 	this.active;
 	this.needsOwl;
-	this.time;
+	this.time = 20;
 
 	this.show = function(){
 		this.html.addClass("show");
@@ -247,7 +247,7 @@ function WhosThatPokemonSlide(){
 	var oldShow = this.show;
 	this.show = function(){
 		oldShow.call(this);
-		document.getElementById("pokemonFrame").contentWindow.postMessage("reveal#5");
+		document.getElementById("pokemonFrame").contentWindow.postMessage("reveal#5", "http://jgadelange.github.io");
 	}
 
 	this.renew = function() {
