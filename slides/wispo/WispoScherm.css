@@ -30,6 +30,7 @@ body, html	{
 }
 
 #Titel{
+	padding-top:200px;
 	color: #FFAC8A;
 	font-size:200px;
 	font-family:Harabara;
