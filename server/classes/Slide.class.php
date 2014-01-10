@@ -81,6 +81,11 @@ class FactSlide extends Slide{
 	}
 }
 
+class IframeSlide extends Slide{
+	public $title;
+	public $src;
+	public $renewTime;
+}
 
 
 

@@ -1,0 +1,96 @@
+/*Eigen font*/
+@font-face
+{
+	font-family: Sanchez;
+	src: url(Sanchezregular.otf);
+}
+
+@font-face
+{
+	font-family: Harabara;
+	src: url(Harabara.ttf);
+}
+
+body{
+	width:1920px;
+	height:1080px;
+	
+	/*Gradient Background*/
+	background: #e4f5fc; /* Old browsers */
+	background: -moz-linear-gradient(top, #e4f5fc 0%, #bfe8f9 64%, #9fd8ef 66%, #2ab0ed 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e4f5fc), color-stop(64%,#bfe8f9), color-stop(66%,#9fd8ef), color-stop(100%,#2ab0ed)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #e4f5fc 0%,#bfe8f9 64%,#9fd8ef 66%,#2ab0ed 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #e4f5fc 0%,#bfe8f9 64%,#9fd8ef 66%,#2ab0ed 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #e4f5fc 0%,#bfe8f9 64%,#9fd8ef 66%,#2ab0ed 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #e4f5fc 0%,#bfe8f9 64%,#9fd8ef 66%,#2ab0ed 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4f5fc', endColorstr='#2ab0ed',GradientType=0 ); /* IE6-9 */
+}
+
+#Titel{
+	color: #FFAC8A;
+	font-size:200px;
+	font-family:Harabara;
+	
+	text-align:center;
+	margin: 0 auto 0 auto;
+}
+
+#Weersverwachting{
+	width:50%;
+	float:left;
+	font-size:70px;
+	text-align:center;
+}
+
+#WeerPlaatje{
+	height:200px;
+}
+
+#Temperatuur{
+	text-align:center;
+}
+
+#Sneeuwhoogte{
+	width:50%;
+	float:left;
+	font-size:70px;
+	text-align:center;
+}
+
+#SneeuwStatistieken{
+	position:relative;
+	top:100px;
+	font-size:75px;
+}
+
+#CountdownText{
+	color: #26E6FF;
+	font-size:70px;
+	
+	position: absolute;
+	top:850px;
+	width:1920px;
+	
+	text-align:center;
+	
+	text-shadow:
+    0 0 5px #000,
+    0 0 5px #000,
+    0 0 5px #000;
+}
+
+.Oranje{
+	color:orange;
+}
+
+.Blauw{
+	color:DarkTurquoise;
+}
+
+.Groot{
+	font-size:100px;
+}
+
+.WispoText{
+	font-family: Sanchez;
+}

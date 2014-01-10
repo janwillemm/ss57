@@ -271,3 +271,45 @@ function WhosThatPokemonSlide(){
 WhosThatPokemonSlide.prototype = Object.create(Slide.prototype);
 WhosThatPokemonSlide.prototype.constructor = WhosThatPokemonSlide;
 WhosThatPokemonSlide.prototype.parent = Slide.prototype;
+
+function IframeSlide(){
+	this.parent.constructor.call(this);
+	this.src;
+	this.title;
+	this.lastUpdated;
+	this.renewTime;
+
+	var oldRenew = this.renew;
+	this.renew = function() {
+		oldRenew.call(this);
+		var currentDate = new Date();
+		
+		if(this.lastUpdated){
+			var difference = Math.abs(currentDate.getTime() - this.lastUpdated.getTime());
+			if (difference / ( 3600 * 1000 ) > this.renewTime){
+				this.update();
+				this.lastUpdated = currentDate;
+			}
+		} else {
+			this.update();
+			this.lastUpdated = currentDate;
+		}
+	}
+
+	this.update = function(){
+		this.html.find("#" + this.title).attr({"src": this.src});
+	}
+
+	var oldMakeHTML = this.makeHTML;
+	this.makeHTML = function(){
+		oldMakeHTML.call(this);
+		var iframe = $("<iframe id='" + this.title + "'>").width(1920).height(1080);
+		this.html.append(iframe);
+		this.renew();
+		return this;
+	}
+}
+
+IframeSlide.prototype = Object.create(Slide.prototype);
+IframeSlide.prototype.constructor = IframeSlide;
+IframeSlide.prototype.parent = Slide.prototype;

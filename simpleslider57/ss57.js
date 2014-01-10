@@ -178,6 +178,11 @@ var slideGenerator = function(){
 			case "FactSlide":
 				slide = makeFactSlide(item.slide);
 				break;
+
+			case "IframeSlide":
+				slide = makeIframeSlide(item.slide);
+				break;
+
 			default: 
 				alert("Error, slide not implemented yet!");
 		}
@@ -218,7 +223,15 @@ var slideGenerator = function(){
 		return slide;
 	}
 
-	function makeWhosThatPokemonSlide(item){
+	function makeIframeSlide(item){
+		var slide = new IframeSlide();
+		slide.title = item.title;
+		slide.src = item.src;
+		slide.renewTime = item.renewTime;
+		return slide;
+	}
+
+	function makeWhosThatPokemonSlide(){
 		var slide = new WhosThatPokemonSlide();
 		return slide;
 	}
@@ -229,8 +242,6 @@ var slideGenerator = function(){
 		makeWhosThatPokemonSlide : makeWhosThatPokemonSlide
 	}
 }();
-
-
 
 
 
