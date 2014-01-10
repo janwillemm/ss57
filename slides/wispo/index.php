@@ -10,8 +10,54 @@
 		<div id="GebiedStatistieken" >
 			<div id="Weersverwachting" class="WispoText">
 				Weer in Risoul:<br/>
-				<div id="WeerPlaatje"></div><br/>
-				<div id="Temperatuur"></div>
+					<?php
+						//Haal sneeuwval op
+						$JSON = file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=Risoul,fr&lang=nl&units=metric");
+						
+						//Decode de json string
+						$weer = json_decode($JSON);
+						
+						//Switch weather code
+						switch($weer->weather[0]->icon){
+							case "01d" : 
+								$imageSource = "icons/01d.png"; break;
+							case "01n" : 
+								$imageSource = "icons/01n.png"; break;
+							case "02d" : 
+								$imageSource = "icons/02d.png"; break;
+							case "02n" : 
+								$imageSource = "icons/02n.png"; break;
+							case "03d" : 
+							case "03n" : 
+							case "04d" : 
+							case "04n" : 
+								$imageSource = "icons/03.png"; break;
+							case "09d" : 
+							case "09n" : 
+								$imageSource = "icons/09.png"; break;
+							case "10d" :
+								$imageSource = "icons/10d.png"; break;
+							case "10n" :
+								$imageSource = "icons/10n.png"; break;
+							case "11d" :
+							case "11n" :
+								$imageSource = "icons/11.png"; break;
+							case "13d" :
+							case "13n" :
+								$imageSource = "icons/13.png"; break;
+							case "50d" :
+								$imageSource = "icons/50d.png"; break;
+							case "50n" :
+								$imageSource = "icons/50n.png"; break;
+							default :
+								$imageSource = "icons/01d.png"; break;
+						}
+						
+						//Zet temperatuur
+						$temperatuur = $weer->main->temp;
+					?>
+				<div id="WeerPlaatje"><img src="<?php echo $imageSource; ?>" alt="WIFI VOOO"/></div><br/>
+				<div id="Temperatuur"><?php echo floor($temperatuur); ?> &#176;C</div>
 			</div>
 			
 			<div id="Sneeuwhoogte" class="WispoText">
