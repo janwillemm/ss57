@@ -225,7 +225,7 @@ var slideGenerator = function(){
 
 	function makeIframeSlide(item){
 		var slide = new IframeSlide();
-		slide.title = item.title;
+		slide.name = item.title;
 		slide.src = item.src;
 		slide.renewTime = item.renewTime;
 		return slide;

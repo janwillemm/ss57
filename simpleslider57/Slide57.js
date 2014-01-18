@@ -275,7 +275,7 @@ WhosThatPokemonSlide.prototype.parent = Slide.prototype;
 function IframeSlide(){
 	this.parent.constructor.call(this);
 	this.src;
-	this.title;
+	this.name;
 	this.lastUpdated;
 	this.renewTime;
 
@@ -297,13 +297,13 @@ function IframeSlide(){
 	}
 
 	this.update = function(){
-		this.html.find("#" + this.title).attr({"src": this.src});
+		this.html.find("#" + this.name).attr({"src": this.src});
 	}
 
 	var oldMakeHTML = this.makeHTML;
 	this.makeHTML = function(){
 		oldMakeHTML.call(this);
-		var iframe = $("<iframe id='" + this.title + "'>").width(1920).height(1080);
+		var iframe = $("<iframe id='" + this.name + "'>").width(1920).height(1080);
 		this.html.append(iframe);
 		this.renew();
 		return this;
