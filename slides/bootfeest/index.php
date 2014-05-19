@@ -47,8 +47,6 @@
 			<img src="images/ulfie_boat_inverted.png" id="boat">
 		</div>
 
-		<div id="sea_holder"></div>
-
-		<img src="images/logo.png" id="logo">
+		<div id="sea_holder"/>
 	</body>
 </html>
