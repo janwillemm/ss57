@@ -69,14 +69,15 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 
 	public function parsePastEvent($event, $flitcieUrl){
 		$flitciePhotos;
-		$data = DatabaseConnection::getInstance()->getImageUrlsForEventId($event->nid);
+		//$data = DatabaseConnection::getInstance()->getImageUrlsForEventId($event->nid);
+		$data = false;
 		if($data){
 			foreach($data as $photoElement){
 				$flitciePhotos[] = $photoElement['url'];
 			}
 		} else {
 			$flitciePhotos = FlitciePhotosFetcher::fetchPhotos($flitcieUrl);
-			DatabaseConnection::getInstance()->setImageUrlsForEventId($flitciePhotos, $event->nid);
+		//	DatabaseConnection::getInstance()->setImageUrlsForEventId($flitciePhotos, $event->nid);
 		}
 		shuffle($flitciePhotos);
 		$slide = new PastEventSlide();
