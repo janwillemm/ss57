@@ -1,4 +1,4 @@
 .DS_Store
 server/protected/config/main.php
-server/protected/runtime/application.log
+server/protected/runtime/application.log.*
 server/protected/runtime/application.log

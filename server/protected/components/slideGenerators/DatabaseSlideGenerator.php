@@ -5,7 +5,8 @@ class DatabaseSlideGenerator implements ISlideGenerator{
 		$slides = array();
 		$slides = array_merge($slides, self::makeFactSlides());
 		$slides = array_merge($slides, self::makeQuoteSlides());
-		$slides = array_merge($slides, self::makeFlitcieSlides());
+		//$slides = array_merge($slides, self::makeFlitcieSlides());
+		$slides = array_merge($slides, self::makeIframeSlides());
 		
 		return $slides;
 	}
@@ -43,7 +44,15 @@ class DatabaseSlideGenerator implements ISlideGenerator{
 	private static function makeIframeSlides(){
 		$slides = array();
 
-		//$iframes = 
+		$iframes = Iframe::model()->findAll("end_date > NOW()");
+
+		foreach($iframes as $iframe){
+			$slide = new IframeSlide();
+			$slide->src = "/server/proxy/?url=" . Proxy::remove_http($iframe->link);
+			$slides[] = $slide;
+		}
+		
+		return $slides;
 	}
 
 	private static function makeFlitcieSlides(){

@@ -6,7 +6,7 @@ class IframeSlide extends Slide{
 
 	function __construct(){
 		parent::__construct();
-		$this->needsOwl = true;
+		$this->needsOwl = false;
 	}
 }
 ?>

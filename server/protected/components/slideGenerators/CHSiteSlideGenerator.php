@@ -62,15 +62,16 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 	}
 
 	public function parseEvent($event){
+		// Only if the event has an full screen image.
 		if($event->{self::IMAGEFULLSCREEN}){
-			return $this->slideForFullScreenImage($event);
+			// Only if event is yet to come.
+			if(strtotime($event->date_event_raw->value) > time()){
+				return $this->slideForFullScreenImage($event);
+			}
 		}
 		return;
 	}
 
-	public function fetchImageUrls(){
-
-	}
 }
 
 ?>

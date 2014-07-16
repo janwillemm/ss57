@@ -17,7 +17,7 @@ class DefaultController extends Controller
 	}
 
 	public function expose($slide){
-		if($slide)
+		if($slide) // Ignores the empty elements in array
 			return $slide->expose();
 	}
 
@@ -25,7 +25,7 @@ class DefaultController extends Controller
 	{
 	    header('Content-type: application/json');
 	    echo CJSON::encode($data);
-
+	    
 	    foreach (Yii::app()->log->routes as $route) {
 	        if($route instanceof CWebLogRoute) {
 	            $route->enabled = false; // disable any weblogroutes
