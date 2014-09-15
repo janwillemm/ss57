@@ -9,10 +9,10 @@ class SlideGenerator implements ISlideGenerator{
 		//$slides = array_merge($slides, $staticSlides);
 
 		$CHSiteSlides = CHSiteSlideGenerator::generateSlides();
-		$slides = array_merge($slides, $CHSiteSlides);
+		$slides = array_filter(array_merge($slides, $CHSiteSlides));;
 		
-		$iframeSlites = IframeSlideGenerator::generateSlides();
-		$slides = array_merge($slides, $iframeSlites);
+		//$iframeSlites = IframeSlideGenerator::generateSlides();
+		//$slides = array_merge($slides, $iframeSlites);
 
 		shuffle($slides);
 		return $slides;

@@ -57,11 +57,11 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 	}
 
 	public function parseEvent($event){
-		$hasPictures = preg_match(self::flitcieRegex, $event->body, $matches);
+		$hasPictures = (($event->body) && preg_match(self::flitcieRegex, $event->body, $matches));
 		if($hasPictures){
 			return $this->parsePastEvent($event, $matches[0]);
 		}
-		elseif($event->{self::IMAGEFULLSCREEN}){
+		elseif((strtotime($event->date_event_raw->value) >= time()) && $event->{self::IMAGEFULLSCREEN}){
 			return $this->slideForFullScreenImage($event);
 		}
 		return;
