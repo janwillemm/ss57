@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<script type="text/javascript">
+			var nu = new Date();
+			var dagNummer = nu.getDate();
+			var uur = nu.getHours();
+			var hintNummer = (dagNummer - 11) + parseInt(uur / 12);
+
+			if(dagNummer > 13){
+				hintNummer -= 2;
+			}
+
+			setTimeout(visualize, 100);
+
+			function visualize(){
+				document.getElementById("hintnummer").innerHTML = hintNummer;
+				document.getElementById("hint").innerHTML = getImgHTML(hintNummer);
+				document.getElementById("hinttext").innerHTML = getHintText(hintNummer);
+			}
+
+			function getImgHTML(hintnr){
+				return "<img src=\"icom_assets/hint" + hintnr + ".png\" id=\"hintImg\"/>";
+			}
+
+
+			function getHintText(hintnr){
+				if(hintnr == 2){
+					return "Verkeersbord!!"
+				}else if(hintnr == 3){
+					return "Busje komt zo!"
+				}else if(hintnr == 4){
+					return "De locatie ligt tussen de polen!"
+				}
+			}
+		</script>
+		<style type="text/css">
+			@font-face {
+			    font-family: chfont;
+			    src: url("icom_assets/font.otf");
+			}
+
+			body{
+				background-image: url("icom_assets/achtergrond.jpg");
+				width: 1920px;
+				height: 1080px;
+			}
+
+			.chfont{
+				font-family: chfont;
+				color: #FACA3C;
+				font-size: 80;
+				text-align: center;
+			}
+
+			#hintImg{
+				height: 800px;
+				margin: auto;
+				display: block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class = "chfont">
+			iCom Locatie Hint nummer
+
+			<span id = "hintnummer">
+
+			</span>!!
+		</div>
+
+		<div id="hint">
+			
+		</div>
+
+		<div id="hinttext" class = "chfont">
+		
+		</div>
+
+	</body>
+</html>

@@ -1,12 +1,12 @@
 <?php
 class IframeSlideGenerator implements ISlideGenerator{
-	
+
 
 	public static function generateSlides(){
 		$slides = array();
 		//$slides[] = self::generateWispoSlide();
-		
-		$slides[] = self::generateBootfeestSlide();
+		//$slides[] = self::generateBootfeestSlide();
+		$slides[] = self::generateIComSlide();
 		return $slides;
 	}
 
@@ -22,6 +22,13 @@ class IframeSlideGenerator implements ISlideGenerator{
 		$slide->src="slides/wispo/index.php";
 		$slide->renewTime = "2";
 
+		return $slide;
+	}
+
+	public static function generateIComSlide(){
+		$slide = new IframeSlide();
+		$slide->title = "iCom";
+		$slide->src="slides/icom/icom.html";
 		return $slide;
 	}
 
