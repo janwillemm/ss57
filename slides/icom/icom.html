@@ -1,50 +1,5 @@
 <html>
 	<head>
-		<script type="text/javascript">
-			var nu = new Date();
-			var dagNummer = nu.getDate();
-			var uur = nu.getHours();
-			var hintNummer = (dagNummer - 11) + parseInt(uur / 12);
-
-			if(dagNummer > 13){
-				hintNummer -= 2;
-			}
-
-			setTimeout(visualize, 100);
-
-			function visualize(){
-				if(hintNummer < 1 || hintNummer > 4){
-					hintNummer = 0;
-				}
-
-				if(hintNummer != 0){
-					document.getElementById("hintnummer").innerHTML = hintNummer;
-				}else{
-					document.getElementById("hinttitle").innerHTML = "De iCom locatie is bekend!"
-					document.getElementById("footer").innerHTML = "Schrijf je nu in op de interesselijst op CH of via http://tinyurl.com/meeopicom !!"
-				}
-
-				document.getElementById("hint").innerHTML = getImgHTML(hintNummer);
-				document.getElementById("hinttext").innerHTML = getHintText(hintNummer);
-			}
-
-			function getImgHTML(hintnr){
-				return "<img src=\"icom_assets/hint" + hintnr + ".png\" id=\"hintImg\"/>";
-			}
-
-
-			function getHintText(hintnr){
-				if(hintnr == 2){
-					return "Verkeersbord!!"
-				}else if(hintnr == 3){
-					return "Busje komt zo!"
-				}else if(hintnr == 4){
-					return "De locatie ligt tussen de polen!"
-				}else{
-					return "We gaan naar Krakau, Polen!!"
-				}
-			}
-		</script>
 		<style type="text/css">
 			@font-face {
 			    font-family: chfont;
@@ -65,33 +20,60 @@
 				text-align: center;
 			}
 
-			#hintImg{
-				height: 700px;
+			#mainImg{
+				height: 790px;
 				margin: auto;
 				display: block;
 			}
+
+			.highlight{
+				color: white;
+			}
+
+			#iComFooter{
+				margin-bottom: 100px;
+			}
+
+			#wrap {
+				min-height: 100%;
+			}
+
+			#main {
+				overflow:auto;
+				padding-bottom: 150px;
+				}  /* must be same height as the footer */
+
+			#footer {
+				position: relative;
+				margin-top: -180px; /* negative value of footer height */
+				height: 150px;
+				clear:both;
+			} 
 		</style>
 	</head>
 
 	<body>
-		<div class = "chfont" id = "hinttitle">
-			iCom Locatie Hint nummer
-
-			<span id = "hintnummer">
-
-			</span>!!
-		</div>
-
-		<div id="hint">
-			
-		</div>
-
-		<div id="hinttext" class = "chfont">
 		
+		<div id="wrap">
+
+			<div id="main">
+				<div class = "chfont" id = "iComTitle">
+					De iCom gaat dit jaar naar Krakau, Polen!
+				</div>
+
+				<div id="hint">
+					<img src="icom_assets/krakau.png" id="mainImg">
+				</div>
+			</div>
+
 		</div>
 
-		<div class="chfont" style="font-size: 40" id="footer">
-			Denk jij de locatie te weten? De eerste die naar raadicom@ch.tudelft.nl het goede antwoord stuurt voor woensdag krijgt een prijs! Een poging per persoon!
+		<div id="footer">
+			<div class="chfont" style="font-size: 45" id="iComFooter">
+				Studeren in het buitenland is <span class="highlight">supervet</span> en goed voor <span class="highlight">zelfonplooiing</span>!<br />
+				Met de iCom kan je een proefje nemen van het <span class="highlight">studeren in het buitenland</span>!<br />
+				Schrijf je in op de interesselijst op het hok of via <span class="highlight">http://wisv.ch/meeopicom</span>!!
+			</div>
 		</div>
 
 	</body>
