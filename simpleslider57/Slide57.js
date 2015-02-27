@@ -39,7 +39,12 @@ function Slide(){
 	}
 
 	this.setHueColor = function(color){
-		$.get("http://gadgetlab.chnet/color/3/" + rgbToHex(color.r, color.g, color.b));
+		var color = rgbToHex(color[0], color[1], color[2]);
+		$.ajax("http://gadgetlab.chnet/color/3/" + color, {
+			type: 'GET',
+		    crossDomain: true,
+		    dataType: 'jsonp',
+		});
 	}
 }
 
@@ -49,7 +54,7 @@ function componentToHex(c) {
 }
 
 function rgbToHex(r, g, b) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    return componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
 
@@ -144,6 +149,17 @@ function FullScreenImageSlide(){
 	this.parent.constructor.call(this);
 	
 	this.fullScreenImage;
+	this.busy = true;
+
+	var oldShow = this.show;
+	this.show = function(){
+		oldShow.call(this);
+		if(!this.busy){
+			var colorThief = new ColorThief();
+			var color = colorThief.getColor(this.fullScreenImage);
+			this.setHueColor(color)
+		}
+	}
 
 	var oldMakeHTML = this.makeHTML;
 	this.makeHTML = function(){
@@ -156,11 +172,17 @@ function FullScreenImageSlide(){
 
 	this.loadImageAndAppendTo = function(fullScreenImage, appendTo){
 		var $this = this;
-		$(fullScreenImage).load(function() {
+		var newUrl = "server/imageproxy.php?url=" + encodeURIComponent($(fullScreenImage).prop("src"));
+		var width  = $(fullScreenImage).prop("width");
+		var height  = $(fullScreenImage).prop("height");
+		
+		var newImg = $("<img>").attr({src: newUrl, width:width, height:height})
+		this.fullScreenImage = newImg[0];
+		console.log(this.fullScreenImage);
+
+		$(newImg).load(function() {
 			$(this).appendTo(appendTo);
-			var colorThief = new ColorThief();
-			var color = colorThief.getColor(sourceImage);
-			$this.setHueColor(color)
+			$this.busy = false;
 		})
 	}
 }
