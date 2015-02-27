@@ -37,6 +37,19 @@ function Slide(){
 			$(this).appendTo(appendTo);
 		})
 	}
+
+	this.setHueColor = function(color){
+		$.get("http://gadgetlab.chnet/color/3/" + rgbToHex(color.r, color.g, color.b));
+	}
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
 
@@ -142,8 +155,12 @@ function FullScreenImageSlide(){
 	}
 
 	this.loadImageAndAppendTo = function(fullScreenImage, appendTo){
+		var $this = this;
 		$(fullScreenImage).load(function() {
 			$(this).appendTo(appendTo);
+			var colorThief = new ColorThief();
+			var color = colorThief.getColor(sourceImage);
+			$this.setHueColor(color)
 		})
 	}
 }
