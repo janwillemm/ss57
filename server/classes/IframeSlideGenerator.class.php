@@ -6,8 +6,15 @@ class IframeSlideGenerator implements ISlideGenerator{
 		$slides = array();
 		//$slides[] = self::generateWispoSlide();
 		//$slides[] = self::generateBootfeestSlide();
-		$slides[] = self::generateIComSlide();
+		//$slides[] = self::generateIComSlide();
+		//$slides[] = self::generateVakantieSlide();
 		return $slides;
+	}
+
+	public static function generateVakantieSlide() {
+		$slide = new IframeSlide();
+		$slide->src = "slides/vakantie/index.html";
+		return $slide;
 	}
 
 	public static function generateBootfeestSlide(){

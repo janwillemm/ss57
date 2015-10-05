@@ -13,7 +13,7 @@ class SlideGenerator implements ISlideGenerator{
 
 		$iframeSlides = IframeSlideGenerator::generateSlides();
 		$slides = array_merge($slides, $iframeSlides);
-
+		
 		shuffle($slides);
 		return $slides;
 	}

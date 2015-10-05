@@ -4,6 +4,9 @@ header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 header('Content-type: application/json');
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 function l57($data){
 	trigger_error($data, E_USER_WARNING);
 }

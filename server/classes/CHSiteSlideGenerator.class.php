@@ -32,8 +32,7 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 	public function fetchData(){
 		$data = file_get_contents(self::API);
 		$items = json_decode($data);
-		$slides = array_map(array($this, "parseItem"), $items);
-		
+		$slides = array_map(array($this, "parseItem"), $items);		
 		return $slides;
 	}
 
@@ -41,9 +40,11 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 		// De eerste sortering geschied op event/ad
 		switch($item->type){
 			case "event":
+			case "Activiteit":
 				return $this->parseEvent($item);
 				break;
 			case "tv_item":
+			case "TV Poster":
 				return $this->slideForFullScreenImage($item);
 				break;
 			default:
