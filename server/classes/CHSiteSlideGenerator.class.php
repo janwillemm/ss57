@@ -37,6 +37,12 @@ class CHSiteSlideGenerator implements ISlideGenerator{
 	}
 
 	public function parseItem($item){
+		// Fix title
+		preg_match_all('/<a .*?>(.*?)<\/a>/',$item->title,$matches);
+		if(isset($matches[1]) && !empty($matches[1][0])) {
+			$item->title = $matches[1][0];
+		}
+		
 		// De eerste sortering geschied op event/ad
 		switch($item->type){
 			case "event":
